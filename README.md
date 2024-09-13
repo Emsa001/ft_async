@@ -1,6 +1,6 @@
 # FT_ASYNC 🪄
 
-This project is a asynchronous task manager written in C. It allows you to create, start, and manage asynchronous tasks.
+This project is an asynchronous task manager written in C. It allows you to create, start, and manage asynchronous tasks.
 
 ## Table of Contents
 - [Introduction](#introduction)
