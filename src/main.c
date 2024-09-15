@@ -13,12 +13,23 @@ void process(t_async *async) {
     printf("process thread %d: %d\n", async->id, time_left);
 }
 
+void end_main(void *arg) {
+    printf("This was executed from main thread!\n");
+}
+
+void ft_wait_end(void *arg) {
+    printf("Executed with ft_wait! - Wow this is so easy!\n");
+}
+
 void main_thread_loop()
 {
     int i = 0;
     while (1) {
-        if (i == 5)
-            break;
+        async_queue();
+        printf("Main loop: %d\n", i);
+
+        if (i == 3)
+            return ;
 
         sleep(1);
         i++;
@@ -35,11 +46,8 @@ int main()
     start_async(async);
 
     t_async *async2 = new_async();
-    async2->time = 10000;
-    async2->start = &start;
-    async2->process = &process;
-    async2->process_time = 10;
-    async2->end = &end;
+    async2->time = 3000;
+    async2->end_main = &end_main;
     start_async(async2);
 
     t_async *async4 = new_async();
@@ -47,7 +55,10 @@ int main()
     async4->start = &start;
     async4->process = &process;
     async4->end = &end;
+    async4->end_main = &end_main;
     start_async(async4);
+
+    ft_wait(1000, &ft_wait_end);
 
     main_thread_loop();
 

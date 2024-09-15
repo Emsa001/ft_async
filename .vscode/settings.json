@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "ft_async.h": "c",
+        "strings.h": "c",
+        "pthread.h": "c"
+    }
+}

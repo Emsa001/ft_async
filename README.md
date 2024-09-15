@@ -39,13 +39,22 @@ Here's a quick overview of how to use the Async Task Manager:
 
 1. **Create a new async task**:
     ```c
-    t_async *async2 = new_async();
-    async2->time = 10000; // Task duration in milliseconds
-    async2->start = &start;
-    async2->process = &process;
-    async2->process_time = 10; // Process interval in milliseconds
-    async2->end = &end;
-    start_async(async2);
+    t_async *async = new_async();
+    async->time = 10000; // Task duration in milliseconds
+    async->start = &start;
+    async->process = &process;
+    async->process_time = 10; // Process interval in milliseconds
+    async->end = &end;
+    async->end_main = &end_main; // Will run function at the end of the async in main thread
+    start_async(async);
+    ```
+
+    ```c
+    void ft_wait_end(void *arg) {
+        printf("Executed with ft_wait! - Wow this is so easy!\n");
+    }
+
+    ft_wait(1000, &ft_wait_end); // Will execute function ft_wait_end in a main thread after 1000 ms
     ```
 
 2. **Define your task functions**:
@@ -61,6 +70,10 @@ Here's a quick overview of how to use the Async Task Manager:
 
     void end(t_async *async) {
         printf("end thread: %d\n", async->id);
+    }
+
+    void end_main(void *arg) {
+        printf("This was executed by the main thread!\n");
     }
     ```
 

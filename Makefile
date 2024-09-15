@@ -3,15 +3,15 @@ CFLAGS = -pthread -g -I./includes
 # CFLAGS += -fsanitize=thread
 
 SRC_DIR = src
-SRC = $(SRC_DIR)/main.c $(SRC_DIR)/manager.c $(SRC_DIR)/new_async.c $(SRC_DIR)/start_async.c $(SRC_DIR)/stop_async.c
+SRC = $(SRC_DIR)/main.c $(SRC_DIR)/manager.c $(SRC_DIR)/new_async.c $(SRC_DIR)/start_async.c $(SRC_DIR)/stop_async.c $(SRC_DIR)/queue.c
 OBJ = $(SRC:.c=.o)
 TARGET = async_program
 
 all: $(TARGET)
 
-run: 
-#	valgrind --leak-check=full --show-leak-kinds=all ./$(TARGET)
-	./$(TARGET)
+run:  re
+	valgrind --leak-check=full --show-leak-kinds=all ./$(TARGET)
+#	./$(TARGET)
 
 $(TARGET): $(OBJ)
 	$(CC) $(CFLAGS) -o $@ $^

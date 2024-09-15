@@ -46,6 +46,7 @@ t_async *new_async()
     async->start = NULL;
     async->process = NULL;
     async->end = NULL;
+    async->end_main = NULL;
 
     async->arg = NULL;
 

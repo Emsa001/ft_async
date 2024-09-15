@@ -34,8 +34,12 @@ static void *run_async(void *arg)
 
     run_async_loop(current, current->manager);
 
-    if (current->end)
-        current->end(current);
+    if(!current->stopped){
+        if(current->end_main)
+            add_to_functions_queue(current);
+        if (current->end)
+            current->end(current);
+    }
 
     remove_from_list(current);
     return NULL;
@@ -56,4 +60,12 @@ void start_async(t_async *async)
 
     pthread_create(&thread_id, NULL, run_async, async);
 	pthread_detach(thread_id); // VERY IMPORTANT
+}
+
+void ft_wait(int time, void (*func)(void *))
+{
+    t_async *async = new_async();
+    async->time = time;
+    async->end_main = func;
+    start_async(async);
 }
