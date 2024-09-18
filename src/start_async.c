@@ -1,7 +1,7 @@
 #include "ft_async.h"
 
 // Function to run async process function
-static void run_async_loop(t_async *current, t_async_manager *manager)
+static void run_async_loop(t_async *current)
 {
     while (1)
     {
@@ -32,7 +32,7 @@ static void *run_async(void *arg)
     if (current->start)
         current->start(current);
 
-    run_async_loop(current, current->manager);
+    run_async_loop(current);
 
     if(!current->stopped){
         if(current->end_main)

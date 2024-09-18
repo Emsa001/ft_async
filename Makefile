@@ -10,8 +10,8 @@ TARGET = async_program
 all: $(TARGET)
 
 run:  re
-	valgrind --leak-check=full --show-leak-kinds=all ./$(TARGET)
-#	./$(TARGET)
+#	valgrind --leak-check=full --show-leak-kinds=all ./$(TARGET)
+	./$(TARGET)
 
 $(TARGET): $(OBJ)
 	$(CC) $(CFLAGS) -o $@ $^

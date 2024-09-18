@@ -1,5 +1,7 @@
 #include "ft_async.h"
 
+int value = 0;
+
 void start(t_async *async) {
     printf("start thread %d\n", async->id);
 }
@@ -19,6 +21,7 @@ void end_main(void *arg) {
 
 void ft_wait_end(void *arg) {
     printf("Executed with ft_wait! - Wow this is so easy!\n");
+    value++;
 }
 
 void main_thread_loop()
@@ -27,6 +30,7 @@ void main_thread_loop()
     while (1) {
         async_queue();
         printf("Main loop: %d\n", i);
+        value++;
 
         if (i == 3)
             return ;
